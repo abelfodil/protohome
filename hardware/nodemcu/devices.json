@@ -1,0 +1,13 @@
+{
+  "devices": [
+	{
+	  "name": "yolo",
+	  "pin": 13
+	},
+	{
+	  "name": "yala",
+	  "pin": 12
+	}
+  ]
+}
+

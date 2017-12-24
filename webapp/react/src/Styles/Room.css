@@ -1,0 +1,51 @@
+:root {
+    --primary: #FAFAFA;
+    --secondary: #424242;
+}
+
+.Room {
+    position: relative;
+    left: 25%;
+    width: 50%;
+    border-radius: 25px;
+    margin: 50px;
+
+    text-align: center;
+
+    background-color: #00bcd4;
+    color: var(--primary) !important;
+}
+
+.Room h1 {
+    padding-top: 30px;
+    display: inline;
+}
+
+.Room .buttons svg {
+    color: var(--primary) !important;
+}
+
+.buttons {
+    display: inline !important;
+}
+
+button.delete {
+    color: #F44336 !important;
+}
+
+button.cancel {
+    color: #9E9E9E !important;
+}
+
+button.AddRoom {
+    width: 100px !important;
+    height: 100px !important;
+    left: 50% !important;
+    margin: 24px 0 24px 0 !important;
+}
+
+button.AddRoom svg {
+    width: 70px !important;
+    height: 70px !important;
+    color: var(--secondary) !important;
+}

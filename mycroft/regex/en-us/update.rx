@@ -1,0 +1,2 @@
+(turn|switch) (?P<State>on|off) (?P<Device>\s*(\S+)) (in|at) (?P<Room>.*)
+(turn|switch) (?P<Device>\s*(\S+)) (?P<State>on|off) (in|at) (?P<Room>.*)

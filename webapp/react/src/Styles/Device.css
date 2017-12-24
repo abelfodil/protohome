@@ -1,0 +1,34 @@
+:root {
+    --primary: #FAFAFA;
+    --secondary: #424242;
+}
+
+button.DeviceButton, button.AddDevice {
+    width: 70px !important;
+    height: 70px !important;
+    margin: 24px 24px 24px 24px !important;
+    border-radius: 50%;
+    background-color: #673AB7 !important;
+}
+
+button.DeviceButton svg, button.AddDevice svg {
+    width: 35px !important;
+    height: 35px !important;
+    color: var(--primary) !important;
+}
+
+button.DeviceButton.on, button.AddDevice {
+    background-color: var(--primary) !important;
+}
+
+button.DeviceButton.on svg, button.AddDevice svg {
+    color: var(--secondary) !important;
+}
+
+button.DeviceButton.off {
+    background-color: var(--secondary) !important;
+}
+
+button.DeviceButton.off svg {
+    color: var(--primary) !important;
+}
