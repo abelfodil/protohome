@@ -13,9 +13,6 @@ post_parser.add_argument('category', type=str, help='Device category is missing'
 
 # PUT arguments
 put_parser = reqparse.RequestParser()
-put_parser.add_argument('id', type=str, help='Device name is missing', required=True)
-put_parser.add_argument('room', type=str, help='Device room is missing', required=True)
-put_parser.add_argument('command', type=str, help='Device command')
 
 # DELETE arguments
 delete_parser = reqparse.RequestParser()
@@ -24,17 +21,6 @@ delete_parser.add_argument('room', type=str, help='Device room is missing', requ
 
 
 class RESTDevice(REST):
-	@staticmethod
-	def interpret_command(device, command):
-		if command == 'turn_on' or command == 'on':
-			return device.turn_on()
-		elif command == 'turn_off' or command == 'off':
-			return device.turn_off()
-		elif command == 'toggle':
-			return device.toggle()
-		else:
-			return device.get_state()
-
 	def __init__(self, **kwargs):
 		super().__init__(**kwargs)
 
@@ -61,17 +47,7 @@ class RESTDevice(REST):
 		return response, 200
 
 	def put(self):
-		arguments = put_parser.parse_args(strict=True)
-		room_id = arguments['room']
-		device_id = arguments['id']
-
-		device = self._home.get_device_from_room(device_id, room_id)
-
-		response = {'state': ''}
-		if device is not None:
-			response['state'] = self.interpret_command(device, arguments['command'])
-
-		return response, 200
+		pass
 
 	def delete(self):
 		arguments = delete_parser.parse_args(strict=True)
@@ -82,3 +58,39 @@ class RESTDevice(REST):
 		self._home.remove_device_from_room(device_id, room_id)
 
 		return '', 204
+
+
+# PUT arguments
+command_parser = reqparse.RequestParser()
+command_parser.add_argument('id', type=str, help='Device name is missing', required=True)
+command_parser.add_argument('room', type=str, help='Device room is missing', required=True)
+command_parser.add_argument('command', type=str, help='Device command')
+
+
+class RESTCommand(REST):
+	@staticmethod
+	def interpret_command(device, command):
+		if command == 'turn_on' or command == 'on':
+			return device.turn_on()
+		elif command == 'turn_off' or command == 'off':
+			return device.turn_off()
+		elif command == 'toggle':
+			return device.toggle()
+		else:
+			return device.get_state()
+
+	def __init__(self, **kwargs):
+		super().__init__(**kwargs)
+
+	def put(self):
+		arguments = command_parser.parse_args(strict=True)
+		room_id = arguments['room']
+		device_id = arguments['id']
+
+		device = self._home.get_device_from_room(device_id, room_id)
+
+		response = {'state': ''}
+		if device is not None:
+			response['state'] = self.interpret_command(device, arguments['command'])
+
+		return response, 200

@@ -1,14 +1,14 @@
-import * as React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
-import IconButton from 'material-ui/IconButton';
+import * as React  from 'react';
+import Dialog      from 'material-ui/Dialog';
+import FlatButton  from 'material-ui/FlatButton';
+import TextField   from 'material-ui/TextField';
+import Divider     from 'material-ui/Divider';
+import IconButton  from 'material-ui/IconButton';
 import BorderInner from 'material-ui-icons/BorderInner';
 
-import GenericDialog from '../GenericDialog';
+import GenericDialog                                       from '../Common/GenericDialog';
 import { AddRoomProperties, AddRoomState, RoomAttributes } from './Interfaces';
-import { InputFieldStyles } from '../../Styles/Styles';
+import { InputFieldStyles }                                from '../../Styles/Styles';
 
 export default class AddRoom extends GenericDialog<AddRoomProperties, AddRoomState> {
 

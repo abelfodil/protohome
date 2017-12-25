@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React                         from 'react';
 
 import '../../Styles/Room.css';
-import { DeviceAttributes } from '../Device/Interfaces';
+import { DeviceAttributes }               from '../Device/Interfaces';
 import { RoomAttributes, RoomProperties } from './Interfaces';
-import Device from '../Device/Device';
-import EditRoom from './EditRoom';
-import DeleteRoom from './DeleteRoom';
-import AddDevice from '../Device/AddDevice';
+import Device                             from '../Device/Device';
+import EditRoom                           from './EditRoom';
+import DeleteRoom                         from './DeleteRoom';
+import AddDevice                          from '../Device/AddDevice';
 
 export default class Room extends React.Component<RoomProperties, {}> {
 

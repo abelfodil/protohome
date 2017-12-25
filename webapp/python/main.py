@@ -8,7 +8,7 @@ from flask import Flask, render_template
 from flask_cors import CORS
 from flask_restful import Api
 
-from lib.rest.device import RESTDevice
+from lib.rest.device import RESTDevice, RESTCommand
 from lib.rest.room import RESTRoom
 from lib.structures.home import Home
 
@@ -40,6 +40,7 @@ def index():
 resource_args = {'database': database, 'home': home}
 api.add_resource(RESTRoom, '/api/rooms', resource_class_kwargs=resource_args)
 api.add_resource(RESTDevice, '/api/devices', resource_class_kwargs=resource_args)
+api.add_resource(RESTCommand, '/api/command', resource_class_kwargs=resource_args)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', use_reloader=False, debug=True)

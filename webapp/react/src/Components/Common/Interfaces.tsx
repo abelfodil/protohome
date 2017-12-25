@@ -1,4 +1,4 @@
-import { RoomAttributes } from './Room/Interfaces';
+import { RoomAttributes } from '../Room/Interfaces';
 
 export interface HomeAttributes {
     rooms: Array<RoomAttributes>;

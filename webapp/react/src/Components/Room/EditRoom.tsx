@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Dialog from 'material-ui/Dialog';
+import Dialog     from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import Create from 'material-ui-icons/Create';
+import TextField  from 'material-ui/TextField';
+import Create     from 'material-ui-icons/Create';
 import IconButton from 'material-ui/IconButton';
 
-import GenericDialog from '../GenericDialog';
+import GenericDialog                                         from '../Common/GenericDialog';
 import { EditRoomProperties, EditRoomState, RoomAttributes } from './Interfaces';
-import { InputFieldStyles } from '../../Styles/Styles';
+import { InputFieldStyles }                                  from '../../Styles/Styles';
 
 export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoomState> {
 

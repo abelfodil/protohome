@@ -1,16 +1,16 @@
-import * as React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import Divider from 'material-ui/Divider';
+import * as React  from 'react';
+import Dialog      from 'material-ui/Dialog';
+import FlatButton  from 'material-ui/FlatButton';
+import TextField   from 'material-ui/TextField';
+import Divider     from 'material-ui/Divider';
 import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import Add from 'material-ui-icons/Add';
+import MenuItem    from 'material-ui/MenuItem';
+import IconButton  from 'material-ui/IconButton';
+import Add         from 'material-ui-icons/Add';
 
-import GenericDialog from '../GenericDialog';
+import GenericDialog                                             from '../Common/GenericDialog';
 import { AddDeviceProperties, AddDeviceState, DeviceAttributes } from './Interfaces';
-import { InputFieldStyles } from '../../Styles/Styles';
+import { InputFieldStyles }                                      from '../../Styles/Styles';
 
 export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDeviceState> {
 

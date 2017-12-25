@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
+import * as React    from 'react';
+import Dialog        from 'material-ui/Dialog';
+import FlatButton    from 'material-ui/FlatButton';
+import IconButton    from 'material-ui/IconButton';
 import DeleteForever from 'material-ui-icons/DeleteForever';
 
-import GenericDialog from '../GenericDialog';
+import GenericDialog                             from '../Common/GenericDialog';
 import { DeleteRoomProperties, DeleteRoomState } from './Interfaces';
 
 export default class DeleteRoom extends GenericDialog<DeleteRoomProperties, DeleteRoomState> {

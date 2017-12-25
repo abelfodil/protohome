@@ -1,5 +1,5 @@
-import { DeviceAttributes } from '../Device/Interfaces';
-import { GenericDialogState } from '../Interfaces';
+import { DeviceAttributes }   from '../Device/Interfaces';
+import { GenericDialogState } from '../Common/Interfaces';
 
 export interface RoomAttributes {
     id: string;

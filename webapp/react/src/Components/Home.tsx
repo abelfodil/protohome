@@ -6,7 +6,7 @@ import Room    from './Room/Room';
 import AddRoom from './Room/AddRoom';
 
 import { RoomAttributes }                 from './Room/Interfaces';
-import { HomeAttributes, HomeProperties } from './Interfaces';
+import { HomeAttributes, HomeProperties } from './Common/Interfaces';
 
 export default class Home extends React.Component<HomeProperties, HomeAttributes> {
 

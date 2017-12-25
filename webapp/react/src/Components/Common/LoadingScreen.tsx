@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React       from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import '../Styles/LoadingScreen.css';
+import '../../Styles/LoadingScreen.css';
 
 export default class LoadingScreen extends React.Component {
 

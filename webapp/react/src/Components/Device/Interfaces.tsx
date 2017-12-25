@@ -1,4 +1,4 @@
-import { GenericDialogState } from '../Interfaces';
+import { GenericDialogState } from '../Common/Interfaces';
 
 export interface DeviceAttributes {
     id: string;

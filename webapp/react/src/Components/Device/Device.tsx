@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import IconButton from 'material-ui/IconButton';
-import LightbulbOutline from 'material-ui-icons/LightbulbOutline';
-import Warning from 'material-ui-icons/Warning';
+import IconButton                             from 'material-ui/IconButton';
+import LightbulbOutline                       from 'material-ui-icons/LightbulbOutline';
+import Warning                                from 'material-ui-icons/Warning';
 
 import '../../Styles/Device.css';
 import { DeviceProperties, DeviceAttributes } from './Interfaces';
@@ -26,7 +26,7 @@ export default class Device extends React.Component<DeviceProperties, {}> {
     }
 
     sendCommand = () => {
-        let location: string = this.props.backendLocation + '/devices';
+        let location: string = this.props.backendLocation + '/command';
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import * as React        from 'react';
+import MuiThemeProvider  from 'material-ui/styles/MuiThemeProvider';
 
 import './Styles/App.css';
-import { AppProperties } from './Components/Interfaces';
-import Home from './Components/Home';
-import LoadingScreen from './Components/LoadingScreen';
+import { AppProperties } from './Components/Common/Interfaces';
+import Home              from './Components/Home';
+import LoadingScreen     from './Components/Common/LoadingScreen';
 
 export default class App extends React.Component<{}, AppProperties> {
     private timer: NodeJS.Timer;
