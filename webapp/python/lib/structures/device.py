@@ -6,14 +6,14 @@ from copy import deepcopy
 class Device:
 	__TIMEOUT = 1
 	__PORT = 80
-	__KEYS = ('name', 'category', 'address')
+	__KEYS = ('id', 'name', 'category', 'address')
 
 	def __init__(self, information):
 		self.__information = self.crop_information(information)
 		self.__state = ''
 
-	def __eq__(self, name):
-		return self.__information['name'] == name
+	def __eq__(self, device_id):
+		return self.__information['id'] == device_id
 
 	@staticmethod
 	def crop_information(information):
@@ -70,10 +70,6 @@ class Device:
 
 	def update(self):
 		self.send_command('get_status')
-
-		details = 'Device "' + self.__information['name'] + '" updated.'
-		logger = logging.getLogger(__name__)
-		logger.info(details)
 
 	def get_information(self):
 		return deepcopy(self.__information)

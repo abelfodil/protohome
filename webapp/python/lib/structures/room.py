@@ -11,8 +11,8 @@ class Room:
 
 		self.set_information(information)
 
-	def __eq__(self, id):
-		return self.__information['id'] == id
+	def __eq__(self, room_id):
+		return self.__information['id'] == room_id
 
 	@staticmethod
 	def crop_information(information):
@@ -39,25 +39,21 @@ class Room:
 		logger = logging.getLogger(__name__)
 		logger.info(details)
 
-	def remove_device(self, device_name):
-		if device_name in self.__devices:
-			self.__devices.remove(device_name)
-			details = 'Removed device "' + device_name + '" from room "' + self.__information['id'] + '".'
+	def remove_device(self, device_id):
+		if device_id in self.__devices:
+			self.__devices.remove(device_id)
+			details = 'Removed device "' + device_id + '" from room "' + self.__information['id'] + '".'
 		else:
-			details = 'Failed to remove device "' + device_name + '" from room "' + self.__information[
+			details = 'Failed to remove device "' + device_id + '" from room "' + self.__information[
 				'id'] + '".'
 
 		logger = logging.getLogger(__name__)
 		logger.info(details)
 
-	def get_device(self, device_name):
+	def get_device(self, device_id):
 		for device in self.__devices:
-			if device == device_name:
+			if device == device_id:
 				return device
-
-		details = 'Device "' + device_name + '" not found.'
-		logger = logging.getLogger(__name__)
-		logger.info(details)
 
 		return None
 
@@ -67,7 +63,3 @@ class Room:
 	def update_devices(self):
 		for device in self.__devices:
 			device.update()
-
-		details = 'Devices in room "' + self.__information['id'] + '" updated.'
-		logger = logging.getLogger(__name__)
-		logger.info(details)

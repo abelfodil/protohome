@@ -6,7 +6,8 @@ import pymongo.errors as MongoErrors
 
 
 class Database:
-	DATABASE_NAME = 'protohome'
+	__DATABASE_NAME = 'protohome'
+	__HASH_SIZE = 20
 
 	def __init__(self, name):
 		self.__name = name
@@ -15,7 +16,7 @@ class Database:
 		while self.server_unavailable():
 			continue
 
-		self.__database = self.__client[self.DATABASE_NAME]
+		self.__database = self.__client[self.__DATABASE_NAME]
 
 		self.init_database()
 
@@ -24,6 +25,7 @@ class Database:
 
 	def init_database(self):
 		self.__database['rooms'].create_index([('id', 1)], unique=True)
+		self.__database['devices'].create_index([('id', 1)], unique=True)
 		self.__database['devices'].create_index([('name', 1), ('room', 1)], unique=True)
 
 	def server_unavailable(self):
@@ -54,17 +56,17 @@ class Database:
 	def update_room(self, room_information):
 		self.__database['rooms'].update({'id': room_information['id']}, room_information)
 
-	def update_device(self, room_id, device_information):
+	def update_device(self, device_information, room_id):
 		data = device_information
 		data['room'] = room_id
 
 		self.__database['devices'].update({
-			'name': data['name'],
+			'id': data['id'],
 			'room': room_id
 		}, data)
 
 	def insert_room(self, room_name):
-		room_id = binascii.hexlify(os.urandom(20)).decode()
+		room_id = binascii.hexlify(os.urandom(self.__HASH_SIZE)).decode()
 
 		formatted_data = {
 			'id': room_id,
@@ -75,8 +77,10 @@ class Database:
 
 		return room_id
 
-	def insert_device(self, room_id, device_information):
+	def insert_device(self, device_information, room_id):
+		device_id = binascii.hexlify(os.urandom(self.__HASH_SIZE)).decode()
 		data = device_information
+		data['id'] = device_id
 		data['room'] = room_id
 
 		try:
@@ -87,9 +91,11 @@ class Database:
 			logger.warning(details)
 			raise error
 
+		return device_id
+
 	def delete_room(self, room_id):
 		self.__database['rooms'].delete_one({'id': room_id})
 		self.__database['devices'].delete_many({'room': room_id})
 
-	def delete_device(self, room_id, device_name):
-		self.__database['devices'].delete_one({'name': device_name, 'room': room_id})
+	def delete_device(self, device_id, room_id):
+		self.__database['devices'].delete_one({'id': device_id, 'room': room_id})

@@ -13,13 +13,13 @@ post_parser.add_argument('category', type=str, help='Device category is missing'
 
 # PUT arguments
 put_parser = reqparse.RequestParser()
-put_parser.add_argument('name', type=str, help='Device name is missing', required=True)
+put_parser.add_argument('id', type=str, help='Device name is missing', required=True)
 put_parser.add_argument('room', type=str, help='Device room is missing', required=True)
 put_parser.add_argument('command', type=str, help='Device command')
 
 # DELETE arguments
 delete_parser = reqparse.RequestParser()
-delete_parser.add_argument('name', type=str, help='Device name is missing', required=True)
+delete_parser.add_argument('id', type=str, help='Device id is missing', required=True)
 delete_parser.add_argument('room', type=str, help='Device room is missing', required=True)
 
 
@@ -47,7 +47,9 @@ class RESTDevice(REST):
 		device_information = Device.crop_information(arguments)
 
 		try:
-			self._database.insert_device(room_id, device_information)
+			device_id = self._database.insert_device(device_information, room_id)
+			device_information['id'] = device_id
+			response['id'] = device_id
 
 			new_device = Device(device_information)
 			new_device.update()
@@ -60,11 +62,12 @@ class RESTDevice(REST):
 
 	def put(self):
 		arguments = put_parser.parse_args(strict=True)
+		room_id = arguments['room']
+		device_id = arguments['id']
+
+		device = self._home.get_device_from_room(device_id, room_id)
 
 		response = {'state': ''}
-
-		device = self._home.get_device_from_room(arguments['name'], arguments['room'])
-
 		if device is not None:
 			self.interpret_command(device, arguments['command'])
 			response['state'] = device.get_state()
@@ -76,7 +79,7 @@ class RESTDevice(REST):
 		room_id = arguments['room']
 		device_id = arguments['name']
 
-		self._database.delete_device(room_id, device_id)
+		self._database.delete_device(device_id, room_id)
 		self._home.remove_device_from_room(device_id, room_id)
 
 		return '', 204
