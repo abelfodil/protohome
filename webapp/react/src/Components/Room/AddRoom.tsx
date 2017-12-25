@@ -6,7 +6,7 @@ import Divider     from 'material-ui/Divider';
 import IconButton  from 'material-ui/IconButton';
 import BorderInner from 'material-ui-icons/BorderInner';
 
-import GenericDialog                                       from '../Common/GenericDialog';
+import GenericDialog                                       from '../Common/GenericFormDialog';
 import { AddRoomProperties, AddRoomState, RoomAttributes } from './Interfaces';
 import { InputFieldStyles }                                from '../../Styles/Styles';
 
@@ -60,7 +60,7 @@ export default class AddRoom extends GenericDialog<AddRoomProperties, AddRoomSta
         return returnValue;
     }
 
-    handleSubmit() {
+    handleSubmit = () => {
         if (this.fieldsAreInvalid()) {
             return;
         }
@@ -116,6 +116,7 @@ export default class AddRoom extends GenericDialog<AddRoomProperties, AddRoomSta
                         name="name"
                         errorText={this.state.errorName}
                         underlineShow={false}
+                        onKeyPress={this.handleEnterKey}
                         onChange={(event: object, value: string) => {
                             this.setState({
                                 name: value

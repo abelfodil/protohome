@@ -4,7 +4,7 @@ import FlatButton    from 'material-ui/FlatButton';
 import IconButton    from 'material-ui/IconButton';
 import DeleteForever from 'material-ui-icons/DeleteForever';
 
-import GenericDialog                             from '../Common/GenericDialog';
+import GenericDialog                             from '../Common/GenericFormDialog';
 import { DeleteRoomProperties, DeleteRoomState } from './Interfaces';
 
 export default class DeleteRoom extends GenericDialog<DeleteRoomProperties, DeleteRoomState> {

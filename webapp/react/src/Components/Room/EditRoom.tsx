@@ -5,7 +5,7 @@ import TextField  from 'material-ui/TextField';
 import Create     from 'material-ui-icons/Create';
 import IconButton from 'material-ui/IconButton';
 
-import GenericDialog                                         from '../Common/GenericDialog';
+import GenericDialog                                         from '../Common/GenericFormDialog';
 import { EditRoomProperties, EditRoomState, RoomAttributes } from './Interfaces';
 import { InputFieldStyles }                                  from '../../Styles/Styles';
 
@@ -59,7 +59,7 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
         return returnValue;
     }
 
-    handleSubmit() {
+    handleSubmit = () => {
         if (this.fieldsAreInvalid()) {
             return;
         }
@@ -110,6 +110,7 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
                         defaultValue={this.props.name}
                         name="name"
                         errorText={this.state.errorName}
+                        onKeyPress={this.handleEnterKey}
                         onChange={(event: object, value: string) => {
                             this.setState({
                                 name: value

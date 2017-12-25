@@ -8,7 +8,7 @@ import MenuItem    from 'material-ui/MenuItem';
 import IconButton  from 'material-ui/IconButton';
 import Add         from 'material-ui-icons/Add';
 
-import GenericDialog                                             from '../Common/GenericDialog';
+import GenericDialog                                             from '../Common/GenericFormDialog';
 import { AddDeviceProperties, AddDeviceState, DeviceAttributes } from './Interfaces';
 import { InputFieldStyles }                                      from '../../Styles/Styles';
 
@@ -109,7 +109,7 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
         });
     }
 
-    handleSubmit() {
+    handleSubmit = () => {
         if (this.fieldsAreInvalid()) {
             return;
         }
@@ -171,6 +171,7 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                         value={this.state.name}
                         underlineShow={false}
                         errorText={this.state.errorName}
+                        onKeyPress={this.handleEnterKey}
                         onChange={(event: object, value: string) => {
                             this.setState({
                                 name: value
@@ -185,6 +186,7 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                         value={this.state.address}
                         underlineShow={false}
                         errorText={this.state.errorAddress}
+                        onKeyPress={this.handleEnterKey}
                         onChange={(event: object, value: string) => {
                             this.setState({
                                 address: value
