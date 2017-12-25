@@ -46,24 +46,32 @@ class RESTRoom(REST):
 	def post(self):
 		arguments = post_parser.parse_args(strict=True)
 
-		room_id = self._database.insert_room(arguments['name'])
+		room_name = arguments['name']
+		room_id = self._database.insert_room(room_name)
+
+		room_information = {
+			'id': room_id,
+			'name': room_name
+		}
+
+		self._home.append_room(Room(room_information))
+
 		response = {'id': room_id}
 
 		return response, 200
 
 	def put(self):
-		arguments = put_parser.parse_args(strict=True)
+		room_information = put_parser.parse_args(strict=True)
 
-		self._database.update_room(Room.crop_information(arguments))
+		self._database.update_room(room_information)
+		self._home.update_room(room_information)
 
-		# TODO: DRY this
-		self._home.build_rooms()
-		self._home.update_rooms()
 		return '', 204
 
 	def delete(self):
 		arguments = delete_parser.parse_args(strict=True)
 
 		self._database.delete_room(arguments['id'])
+		self._home.remove_room(arguments['id'])
 
 		return '', 204

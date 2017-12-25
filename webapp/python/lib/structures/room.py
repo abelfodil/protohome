@@ -5,12 +5,14 @@ from copy import deepcopy
 class Room:
 	__KEYS = ('id', 'name')
 
-	def __init__(self, information, devices=[]):
-		self.__information = self.crop_information(information)
-		self.__devices = devices
+	def __init__(self, information):
+		self.__information = {}
+		self.__devices = []
 
-	def __eq__(self, name):
-		return self.__information['id'] == name
+		self.set_information(information)
+
+	def __eq__(self, id):
+		return self.__information['id'] == id
 
 	@staticmethod
 	def crop_information(information):
@@ -25,7 +27,10 @@ class Room:
 	def get_information(self):
 		return deepcopy(self.__information)
 
-	def add_device(self, device):
+	def set_information(self, information):
+		self.__information = self.crop_information(information)
+
+	def append_device(self, device):
 		self.__devices.append(device)
 
 		details = 'Added device "' + device.get_information()['name'] + '" in room "' + \

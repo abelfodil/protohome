@@ -11,67 +11,68 @@ class Home:
 		self.__database = database
 		self.__rooms = []
 
-		self.build_rooms()
-		self.update_rooms()
+		self.reload_home()
 
-	def add_room(self, room):
+	def append_room(self, room):
 		self.__rooms.append(room)
 
-		details = 'Added room "' + room.get_information()['id'] + '" in home.'
-		logger = logging.getLogger(__name__)
-		logger.info(details)
+	def update_room(self, room_information):
+		room = self.get_room(room_information['id'])
+		room.set_information(room_information)
 
-	def remove_room(self, room_name):
-		if room_name in self.__rooms:
-			self.__rooms.remove(room_name)
-
-			details = 'Removed room "' + room_name + '" from home.'
+	def remove_room(self, room_id):
+		if room_id in self.__rooms:
+			self.__rooms.remove(room_id)
+			return True
 		else:
-			details = 'Failed to remove room "' + room_name + '" from home.'
-
-		logger = logging.getLogger(__name__)
-		logger.info(details)
+			return False
 
 	def get_room(self, room_name):
 		for room in self.__rooms:
 			if room == room_name:
 				return room
 
-		details = 'Room "' + room_name + '" not found.'
-		logger = logging.getLogger(__name__)
-		logger.info(details)
-
 		return None
 
 	def get_all_rooms(self):
 		return self.__rooms
 
-	def get_device_from_room(self, device_name, room_name):
+	def get_device_from_room(self, device_id, room_id):
 		device = None
 
-		room = self.get_room(room_name)
+		room = self.get_room(room_id)
 		if room is not None:
-			device = room.get_device(device_name)
+			device = room.get_device(device_id)
 
 		return device
 
-	def update_rooms(self):
+	def append_device_to_room(self, device, room_id):
+		room = self.get_room(room_id)
+
+		if room is not None:
+			room.append_device(device)
+
+	def remove_device_from_room(self, device_id, room_id):
+		room = self.get_room(room_id)
+
+		if room is not None:
+			room.remove_device(device_id)
+
+	def update_all_devices(self):
 		for room in self.__rooms:
 			room.update_devices()
 
-		details = 'All devices were updated.'
-		logger = logging.getLogger(__name__)
-		logger.info(details)
-
-	def build_rooms(self):
+	def reload_home(self):
 		self.__rooms = []
 		rooms_collection = self.__database.fetch_rooms()
 
-		for room in rooms_collection:
-			devices = []
+		for room_information in rooms_collection:
+			new_room = Room(room_information)
 
-			devices_collection = self.__database.fetch_devices(room['id'])
+			devices_collection = self.__database.fetch_devices(room_information['id'])
 			for device in devices_collection:
-				devices.append(Device(device))
+				new_room.append_device(Device(device))
 
-			self.__rooms.append(Room(room, devices))
+			self.__rooms.append(new_room)
+
+		self.update_all_devices()

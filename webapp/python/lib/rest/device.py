@@ -43,14 +43,21 @@ class RESTDevice(REST):
 
 		response = {'duplicate': False}
 
+		room_id = arguments['room']
+		device_information = Device.crop_information(arguments)
+
 		try:
-			self._database.insert_device(arguments['room'], Device.crop_information(arguments))
+			self._database.insert_device(room_id, device_information)
+
+			new_device = Device(device_information)
+			new_device.update()
+
+			self._home.append_device_to_room(new_device, room_id)
 		except MongoErrors.DuplicateKeyError:
 			response['duplicate'] = True
 
 		return response, 200
 
-	# TODO: change method
 	def put(self):
 		arguments = put_parser.parse_args(strict=True)
 
@@ -66,7 +73,10 @@ class RESTDevice(REST):
 
 	def delete(self):
 		arguments = delete_parser.parse_args(strict=True)
+		room_id = arguments['room']
+		device_id = arguments['name']
 
-		self._database.delete_device(arguments['room'], arguments['name'])
+		self._database.delete_device(room_id, device_id)
+		self._home.remove_device_from_room(device_id, room_id)
 
 		return '', 204
