@@ -41,7 +41,7 @@ class RESTRoom(REST):
 
 			formatted_data.append(formatted_room)
 
-		return formatted_data, 200
+		return formatted_data
 
 	def post(self):
 		arguments = post_parser.parse_args(strict=True)
@@ -58,7 +58,7 @@ class RESTRoom(REST):
 
 		response = {'id': room_id}
 
-		return response, 200
+		return response
 
 	def put(self):
 		room_information = put_parser.parse_args(strict=True)
@@ -66,7 +66,7 @@ class RESTRoom(REST):
 		self._database.update_room(room_information)
 		self._home.update_room(room_information)
 
-		return '', 204
+		return {}
 
 	def delete(self):
 		arguments = delete_parser.parse_args(strict=True)
@@ -74,4 +74,4 @@ class RESTRoom(REST):
 		self._database.delete_room(arguments['id'])
 		self._home.remove_room(arguments['id'])
 
-		return '', 204
+		return {}

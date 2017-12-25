@@ -13,6 +13,11 @@ post_parser.add_argument('category', type=str, help='Device category is missing'
 
 # PUT arguments
 put_parser = reqparse.RequestParser()
+put_parser.add_argument('id', type=str, help='Device id is missing', required=True)
+put_parser.add_argument('room', type=str, help='Device room is missing', required=True)
+put_parser.add_argument('name', type=str, help='Device name is missing', required=True)
+put_parser.add_argument('address', type=str, help='Device address is missing', required=True)
+put_parser.add_argument('category', type=str, help='Device category is missing', required=True)
 
 # DELETE arguments
 delete_parser = reqparse.RequestParser()
@@ -44,10 +49,11 @@ class RESTDevice(REST):
 		except MongoErrors.DuplicateKeyError:
 			response['duplicate'] = True
 
-		return response, 200
+		return response
 
 	def put(self):
-		pass
+		arguments = put_parser.parse_args(strict=True)
+		return arguments
 
 	def delete(self):
 		arguments = delete_parser.parse_args(strict=True)
@@ -57,7 +63,7 @@ class RESTDevice(REST):
 		self._database.delete_device(device_id, room_id)
 		self._home.remove_device_from_room(device_id, room_id)
 
-		return '', 204
+		return {}
 
 
 # PUT arguments
@@ -93,4 +99,4 @@ class RESTCommand(REST):
 		if device is not None:
 			response['state'] = self.interpret_command(device, arguments['command'])
 
-		return response, 200
+		return response

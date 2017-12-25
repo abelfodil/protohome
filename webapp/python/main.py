@@ -15,7 +15,7 @@ from lib.structures.home import Home
 from lib.common.database import Database
 from lib.common.scheduler import schedule
 
-ROOT = path.dirname(path.dirname(path.dirname(path.realpath(__file__))))
+ROOT = path.dirname(path.realpath(__file__))
 logging.basicConfig(
 	filename=ROOT + '/debug.log',
 	level=logging.NOTSET,

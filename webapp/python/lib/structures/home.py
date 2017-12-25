@@ -15,7 +15,12 @@ class Home:
 
 	def update_room(self, room_information):
 		room = self.get_room(room_information['id'])
-		room.set_information(room_information)
+
+		if room is not None:
+			room.set_information(room_information)
+			return True
+		else:
+			return False
 
 	def remove_room(self, room_id):
 		if room_id in self.__rooms:
