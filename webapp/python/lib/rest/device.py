@@ -27,13 +27,13 @@ class RESTDevice(REST):
 	@staticmethod
 	def interpret_command(device, command):
 		if command == 'turn_on' or command == 'on':
-			device.turn_on()
+			return device.turn_on()
 		elif command == 'turn_off' or command == 'off':
-			device.turn_off()
+			return device.turn_off()
 		elif command == 'toggle':
-			device.toggle()
+			return device.toggle()
 		else:
-			device.update()
+			return device.get_state()
 
 	def __init__(self, **kwargs):
 		super().__init__(**kwargs)
@@ -52,7 +52,7 @@ class RESTDevice(REST):
 			response['id'] = device_id
 
 			new_device = Device(device_information)
-			new_device.update()
+			new_device.get_state()
 
 			self._home.append_device_to_room(new_device, room_id)
 		except MongoErrors.DuplicateKeyError:
@@ -69,8 +69,7 @@ class RESTDevice(REST):
 
 		response = {'state': ''}
 		if device is not None:
-			self.interpret_command(device, arguments['command'])
-			response['state'] = device.get_state()
+			response['state'] = self.interpret_command(device, arguments['command'])
 
 		return response, 200
 

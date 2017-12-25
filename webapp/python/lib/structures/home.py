@@ -1,6 +1,3 @@
-import logging
-from functools import wraps
-
 from lib.structures.device import Device
 from lib.structures.room import Room
 
@@ -58,9 +55,9 @@ class Home:
 		if room is not None:
 			room.remove_device(device_id)
 
-	def update_all_devices(self):
+	def fetch_devices_states(self):
 		for room in self.__rooms:
-			room.update_devices()
+			room.fetch_devices_states()
 
 	def reload_home(self):
 		self.__rooms = []
@@ -75,4 +72,4 @@ class Home:
 
 			self.__rooms.append(new_room)
 
-		self.update_all_devices()
+		self.fetch_devices_states()

@@ -28,7 +28,7 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 database = Database(__name__)
 home = Home(__name__, database)
 
-schedule(home.update_all_devices, 2, 'updating_devices_job', 'Updating home devices')
+schedule(home.fetch_devices_states, 2, 'updating_devices_job', 'Updating home devices')
 schedule(home.reload_home, 10, 'reload_home_job', 'Reloading home from database')
 
 

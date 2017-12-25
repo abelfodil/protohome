@@ -36,7 +36,7 @@ export default class Device extends React.Component<DeviceProperties, {}> {
             headers: headers,
             method: 'PUT',
             body: JSON.stringify({
-                name: this.props.name,
+                id: this.props.id,
                 room: this.props.room,
                 command: 'toggle'
             })

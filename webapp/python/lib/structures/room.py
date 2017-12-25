@@ -1,4 +1,3 @@
-import logging
 from copy import deepcopy
 
 
@@ -33,22 +32,12 @@ class Room:
 	def append_device(self, device):
 		self.__devices.append(device)
 
-		details = 'Added device "' + device.get_information()['name'] + '" in room "' + \
-				  self.__information['id'] + '".'
-
-		logger = logging.getLogger(__name__)
-		logger.info(details)
-
 	def remove_device(self, device_id):
 		if device_id in self.__devices:
 			self.__devices.remove(device_id)
-			details = 'Removed device "' + device_id + '" from room "' + self.__information['id'] + '".'
+			return True
 		else:
-			details = 'Failed to remove device "' + device_id + '" from room "' + self.__information[
-				'id'] + '".'
-
-		logger = logging.getLogger(__name__)
-		logger.info(details)
+			return False
 
 	def get_device(self, device_id):
 		for device in self.__devices:
@@ -60,6 +49,6 @@ class Room:
 	def get_all_devices(self):
 		return self.__devices
 
-	def update_devices(self):
+	def fetch_devices_states(self):
 		for device in self.__devices:
-			device.update()
+			device.get_state()

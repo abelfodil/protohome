@@ -26,14 +26,12 @@ class Device:
 		return new_information
 
 	def send_command(self, command):
-		feedback = ''
-		self.__state = feedback
+		self.__state = ''
 
 		request = "/" + self.__information['name'] + "/" + str(command)
 
 		try:
-			connection = http.client.HTTPConnection(self.__information['address'], self.__PORT,
-													timeout=self.__TIMEOUT)
+			connection = http.client.HTTPConnection(self.__information['address'], self.__PORT, timeout=self.__TIMEOUT)
 			connection.request("GET", request)
 			raw_feedback = connection.getresponse()
 
@@ -51,16 +49,15 @@ class Device:
 			logger.error(details)
 
 		else:
-			feedback = raw_feedback
 			self.__state = raw_feedback.read().decode('UTF-8').strip()  # message can't be read afterwards
 
-		return feedback
+		return self.__state
 
 	def turn_on(self):
-		self.send_command('turn_on')
+		return self.send_command('turn_on')
 
 	def turn_off(self):
-		self.send_command('turn_off')
+		return self.send_command('turn_off')
 
 	def toggle(self):
 		if self.__state == 'off':
@@ -68,11 +65,13 @@ class Device:
 		else:
 			self.turn_off()
 
-	def update(self):
-		self.send_command('get_status')
+		return self.__state
+
+	def get_state(self, get_latest_state=True):
+		if get_latest_state:
+			self.send_command('get_status')
+
+		return self.__state
 
 	def get_information(self):
 		return deepcopy(self.__information)
-
-	def get_state(self):
-		return self.__state

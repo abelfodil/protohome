@@ -40,7 +40,8 @@ export default class Room extends React.Component<RoomProperties, {}> {
         let devices = this.props.devices.map((device: DeviceAttributes) => {
             return (
                 <Device
-                    key={this.props.id + '_' + device.name}
+                    key={device.id}
+                    id={device.id}
                     name={device.name}
                     category={device.category}
                     state={device.state}

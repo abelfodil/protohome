@@ -1,6 +1,7 @@
 import { GenericDialogState } from '../Interfaces';
 
 export interface DeviceAttributes {
+    id: string;
     name: string;
     category: string;
     state: string;

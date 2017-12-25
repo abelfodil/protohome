@@ -34,7 +34,7 @@ class RESTRoom(REST):
 
 			for device in devices:
 				formatted_device = device.get_information()
-				formatted_device['state'] = device.get_state()
+				formatted_device['state'] = device.get_state(False)
 				formatted_devices.append(formatted_device)
 
 			formatted_room['devices'] = formatted_devices

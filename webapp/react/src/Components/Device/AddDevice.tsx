@@ -138,6 +138,7 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                 } else {
 
                     let newDevice: DeviceAttributes = {
+                        id: data.id,
                         name: this.state.name,
                         category: this.state.selectedCategory,
                         state: 'off',

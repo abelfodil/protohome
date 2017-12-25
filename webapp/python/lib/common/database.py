@@ -25,6 +25,7 @@ class Database:
 
 	def init_database(self):
 		self.__database['rooms'].create_index([('id', 1)], unique=True)
+
 		self.__database['devices'].create_index([('id', 1)], unique=True)
 		self.__database['devices'].create_index([('name', 1), ('room', 1)], unique=True)
 
