@@ -88,7 +88,6 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
             this.props.updateRoom(newRoom);
 
             this.setState({
-                name: '',
                 errorName: ''
             });
 

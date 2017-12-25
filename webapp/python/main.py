@@ -4,7 +4,7 @@
 import logging
 from os import path
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_cors import CORS
 from flask_restful import Api
 
@@ -12,8 +12,8 @@ from lib.rest.device import RESTDevice
 from lib.rest.room import RESTRoom
 from lib.structures.home import Home
 
-from lib.utilities.database import Database
-from lib.utilities.scheduler import schedule
+from lib.common.database import Database
+from lib.common.scheduler import schedule
 
 ROOT = path.dirname(path.dirname(path.dirname(path.realpath(__file__))))
 logging.basicConfig(
@@ -34,6 +34,14 @@ schedule(home.update_rooms, 5, 'updating_devices_job', 'Updating home devices')
 @app.route('/', methods=['GET'])
 def index():
 	return render_template('index.html')
+
+
+@app.teardown_request
+def rebuild_home(exception=None):
+	if exception is None:
+		if request.method in ['POST', 'DELETE']:
+			home.build_rooms()
+			home.update_rooms()
 
 
 resource_args = {'database': database, 'home': home}

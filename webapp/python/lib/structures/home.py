@@ -75,14 +75,3 @@ class Home:
 				devices.append(Device(device))
 
 			self.__rooms.append(Room(room, devices))
-
-	def rebuild_home_decorator(self, func):
-		@wraps(func)
-		def wrapper(*args, **kwargs):
-			result = func(*args, **kwargs)
-			self.build_rooms()
-			self.update_rooms()
-
-			return result
-
-		return wrapper

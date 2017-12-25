@@ -49,7 +49,6 @@ class RESTRoom(REST):
 		room_id = self._database.insert_room(arguments['name'])
 		response = {'id': room_id}
 
-		self._home.build_rooms()
 		return response, 200
 
 	def put(self):
@@ -57,7 +56,9 @@ class RESTRoom(REST):
 
 		self._database.update_room(Room.crop_information(arguments))
 
+		# TODO: DRY this
 		self._home.build_rooms()
+		self._home.update_rooms()
 		return '', 204
 
 	def delete(self):
@@ -65,5 +66,4 @@ class RESTRoom(REST):
 
 		self._database.delete_room(arguments['id'])
 
-		self._home.build_rooms()
 		return '', 204

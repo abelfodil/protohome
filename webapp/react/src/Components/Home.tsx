@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import '../Styles/Home.css';
 
-import Room from './Room/Room';
+import Room    from './Room/Room';
 import AddRoom from './Room/AddRoom';
 
-import { RoomAttributes } from './Room/Interfaces';
+import { RoomAttributes }                 from './Room/Interfaces';
 import { HomeAttributes, HomeProperties } from './Interfaces';
 
 export default class Home extends React.Component<HomeProperties, HomeAttributes> {

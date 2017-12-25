@@ -48,9 +48,9 @@ class RESTDevice(REST):
 		except MongoErrors.DuplicateKeyError:
 			response['duplicate'] = True
 
-		self._home.build_rooms()
 		return response, 200
 
+	# TODO: change method
 	def put(self):
 		arguments = put_parser.parse_args(strict=True)
 
@@ -69,5 +69,4 @@ class RESTDevice(REST):
 
 		self._database.delete_device(arguments['room'], arguments['name'])
 
-		self._home.build_rooms()
 		return '', 204
