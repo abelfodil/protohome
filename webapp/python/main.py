@@ -4,9 +4,10 @@
 import logging
 from os import path
 
-from flask import Flask, render_template
-from flask_cors import CORS
+from flask import Flask, request, render_template
+from flask_socketio import SocketIO
 from flask_restful import Api
+from flask_cors import CORS
 
 from lib.rest.device import RESTDevice, RESTCommand
 from lib.rest.room import RESTRoom
@@ -23,6 +24,7 @@ logging.basicConfig(
 
 app = Flask(__name__, template_folder='../react/build', static_folder='../react/build/static')
 api = Api(app)
+socketio = SocketIO(app)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 database = Database(__name__)
@@ -37,10 +39,17 @@ def index():
 	return render_template('index.html')
 
 
+@app.teardown_request
+def notify_client(exception=None):
+	if exception is None:
+		if request.method in ['PUT', 'POST', 'DELETE']:
+			socketio.emit('notify', namespace="/api/socket")
+
+
 resource_args = {'database': database, 'home': home}
 api.add_resource(RESTRoom, '/api/rooms', resource_class_kwargs=resource_args)
 api.add_resource(RESTDevice, '/api/devices', resource_class_kwargs=resource_args)
 api.add_resource(RESTCommand, '/api/command', resource_class_kwargs=resource_args)
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', use_reloader=False, debug=True)
+	socketio.run(app)

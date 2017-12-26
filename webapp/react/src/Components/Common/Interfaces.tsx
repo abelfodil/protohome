@@ -5,12 +5,12 @@ export interface HomeAttributes {
 }
 
 export interface HomeProperties extends HomeAttributes {
-    backendLocation: string;
+    APILocation: string;
 }
 
-export interface AppProperties {
+export interface AppState {
     rooms: Array<RoomAttributes>;
-    backendLocation: string;
+    APILocation: string;
     loaded: boolean;
 }
 
