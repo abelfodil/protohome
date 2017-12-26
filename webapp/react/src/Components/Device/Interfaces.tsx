@@ -9,14 +9,14 @@ export interface DeviceAttributes {
 }
 
 export interface DeviceProperties extends DeviceAttributes {
-    backendLocation: string;
+    APILocation: string;
     onDeviceChange(newDevice: DeviceAttributes): void;
 }
 
 export interface DeviceDialogProperties {
     room_id: string;
     room_name: string;
-    backendLocation: string;
+    APILocation: string;
 }
 
 export interface AddDeviceProperties extends DeviceDialogProperties {

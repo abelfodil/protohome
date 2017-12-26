@@ -114,7 +114,7 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
             return;
         }
 
-        let location: string = this.props.backendLocation + '/devices';
+        let location: string = this.props.APILocation + '/devices';
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');

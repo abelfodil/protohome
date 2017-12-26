@@ -46,7 +46,7 @@ export default class Room extends React.Component<RoomProperties, {}> {
                     category={device.category}
                     state={device.state}
                     room={this.props.id}
-                    backendLocation={this.props.backendLocation}
+                    APILocation={this.props.APILocation}
                     onDeviceChange={this.handleDeviceChange}
                 />
             );
@@ -62,7 +62,7 @@ export default class Room extends React.Component<RoomProperties, {}> {
                         key={this.props.id + '_edit'}
                         id={this.props.id}
                         name={this.props.name}
-                        backendLocation={this.props.backendLocation}
+                        APILocation={this.props.APILocation}
                         devices={this.props.devices}
                         updateRoom={this.handleUpdate}
                     />
@@ -71,7 +71,7 @@ export default class Room extends React.Component<RoomProperties, {}> {
                         key={this.props.id + '_delete'}
                         id={this.props.id}
                         name={this.props.name}
-                        backendLocation={this.props.backendLocation}
+                        APILocation={this.props.APILocation}
                         devices={this.props.devices}
                         deleteRoom={this.handleDeleteRoom}
                     />
@@ -84,7 +84,7 @@ export default class Room extends React.Component<RoomProperties, {}> {
                         key={this.props.id + '_add'}
                         room_id={this.props.id}
                         room_name={this.props.name}
-                        backendLocation={this.props.backendLocation}
+                        APILocation={this.props.APILocation}
                         addDevice={this.handleAddDevice}
                     />
                 </div>

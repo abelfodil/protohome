@@ -15,7 +15,7 @@ export default class Device extends React.Component<DeviceProperties, {}> {
     }
 
     sendCommand = () => {
-        let location: string = this.props.backendLocation + '/command';
+        let location: string = this.props.APILocation + '/command';
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');

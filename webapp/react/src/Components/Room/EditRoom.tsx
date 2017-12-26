@@ -64,7 +64,7 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
             return;
         }
 
-        let location: string = this.props.backendLocation + '/rooms';
+        let location: string = this.props.APILocation + '/rooms';
 
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

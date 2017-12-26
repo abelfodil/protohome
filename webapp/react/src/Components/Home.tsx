@@ -73,7 +73,7 @@ export default class Home extends React.Component<HomeProperties, HomeAttributes
                     id={room.id}
                     name={room.name}
                     devices={room.devices}
-                    backendLocation={this.props.backendLocation}
+                    APILocation={this.props.APILocation}
                     onRoomDelete={this.handleRoomDeletion}
                     onRoomAdd={this.handleRoomAddition}
                     onRoomUpdate={this.handleRoomUpdate}
@@ -85,7 +85,7 @@ export default class Home extends React.Component<HomeProperties, HomeAttributes
             <div className="Home">
                 {rooms}
                 <AddRoom
-                    backendLocation={this.props.backendLocation}
+                    APILocation={this.props.APILocation}
                     addRoom={this.handleRoomAddition}
                 />
 

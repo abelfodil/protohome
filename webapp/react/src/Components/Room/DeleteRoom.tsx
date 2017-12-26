@@ -38,7 +38,7 @@ export default class DeleteRoom extends GenericDialog<DeleteRoomProperties, Dele
     }
 
     handleDelete() {
-        let location = this.props.backendLocation + '/rooms';
+        let location = this.props.APILocation + '/rooms';
 
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

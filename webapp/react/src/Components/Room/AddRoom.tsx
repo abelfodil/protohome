@@ -65,7 +65,7 @@ export default class AddRoom extends GenericDialog<AddRoomProperties, AddRoomSta
             return;
         }
 
-        let location: string = this.props.backendLocation + '/rooms';
+        let location: string = this.props.APILocation + '/rooms';
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
