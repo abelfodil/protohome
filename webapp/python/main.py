@@ -18,20 +18,19 @@ from lib.common.scheduler import schedule
 
 ROOT = path.dirname(path.realpath(__file__))
 logging.basicConfig(
-	filename=ROOT + '/debug.log',
 	level=logging.NOTSET,
+	filename=ROOT + '/debug.log',
 	format='%(asctime)s from %(name)-35s %(levelname)-8s: %(message)s')
 
-app = Flask(__name__, template_folder='../react/build', static_folder='../react/build/static')
+app = Flask(
+	__name__,
+	template_folder='../react/build',
+	static_folder='../react/build/static'
+)
+
 api = Api(app)
 socketio = SocketIO(app)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-database = Database(__name__)
-home = Home(__name__, database)
-
-schedule(home.fetch_devices_states, 2, 'updating_devices_job', 'Updating home devices')
-schedule(home.reload_home, 10, 'reload_home_job', 'Reloading home from database')
 
 
 @app.route('/', methods=['GET'])
@@ -40,11 +39,17 @@ def index():
 
 
 @app.teardown_request
-def notify_client(exception=None):
+def after_change(exception=None):
 	if exception is None:
 		if request.method in ['PUT', 'POST', 'DELETE']:
 			socketio.emit('notify', namespace="/api/socket")
 
+
+database = Database(__name__)
+home = Home(__name__, database)
+
+schedule(home.fetch_devices_states, 2, 'updating_devices_job', 'Updating home devices')
+schedule(home.reload_home, 10, 'reload_home_job', 'Reloading home from database')
 
 resource_args = {'database': database, 'home': home}
 api.add_resource(RESTRoom, '/api/rooms', resource_class_kwargs=resource_args)
