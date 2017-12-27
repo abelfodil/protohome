@@ -6,8 +6,7 @@
 .Room {
     position: relative;
     width: 100%;
-    border-radius: 25px;
-    margin-bottom: 50px;
+    margin: 0;
 
     text-align: center;
 

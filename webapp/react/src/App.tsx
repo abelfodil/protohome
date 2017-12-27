@@ -146,6 +146,7 @@ export default class App extends React.Component<{}, AppState> {
                     <Drawer
                         type="permanent"
                         anchor="left"
+                        className="main-menu"
                     >
                         <ListRooms
                             APILocation={this.state.APILocation}
@@ -157,8 +158,9 @@ export default class App extends React.Component<{}, AppState> {
                         />
 
                     </Drawer>
-
-                    {this.displaySelectedRoom()}
+                    <main>
+                        {this.displaySelectedRoom()}
+                    </main>
                 </div>
             );
         }

@@ -15,3 +15,11 @@ div.dialogWrapper {
 div[class*="MuiDialog-paper-"] {
     width: 100% !important;
 }
+
+div.main-menu > div {
+    width: 250px !important;
+}
+
+main {
+    margin-left: 250px !important;
+}

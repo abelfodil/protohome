@@ -86,6 +86,7 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
                         <TextField
                             defaultValue={this.props.name}
                             name="name"
+                            label="Name"
                             onKeyPress={this.handleEnterKey}
                             onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                 this.setState({
