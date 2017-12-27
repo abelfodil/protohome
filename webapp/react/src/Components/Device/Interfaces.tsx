@@ -28,7 +28,11 @@ export interface AddDeviceState extends GenericDialogState {
     address: string;
     selectedCategory: string;
 
-    errorName: string;
-    errorAddress: string;
-    errorCategory: string;
+    helperName: string;
+    helperAddress: string;
+    helperCategory: string;
+
+    errorName: boolean;
+    errorAddress: boolean;
+    errorCategory: boolean;
 }

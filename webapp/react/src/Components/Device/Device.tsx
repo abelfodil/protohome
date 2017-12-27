@@ -43,6 +43,7 @@ export default class Device extends React.Component<DeviceProperties, {}> {
             <IconButton
                 className={'DeviceButton ' + this.props.state}
                 onClick={this.sendCommand}
+                disableRipple
             >
                 <DeviceIcon category={this.props.category}/>
             </IconButton>

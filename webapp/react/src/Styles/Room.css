@@ -8,7 +8,7 @@
     left: 25%;
     width: 50%;
     border-radius: 25px;
-    margin: 50px;
+    margin-bottom: 50px;
 
     text-align: center;
 
@@ -27,10 +27,6 @@
 
 .buttons {
     display: inline !important;
-}
-
-button.delete {
-    color: #F44336 !important;
 }
 
 button.cancel {

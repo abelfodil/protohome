@@ -42,6 +42,7 @@ export default class DeleteRoom extends GenericDialog<DeleteRoomProperties, Dele
                 <Dialog
                     open={this.state.dialogIsOpen}
                     onClose={this.closeDialog}
+                    transition={this.transition}
                 >
                     <DialogTitle>{'Deleting "' + this.props.name + '"'}</DialogTitle>
                     <DialogContent>

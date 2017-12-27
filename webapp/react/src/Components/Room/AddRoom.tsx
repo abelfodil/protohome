@@ -82,18 +82,22 @@ export default class AddRoom extends GenericDialog<AddRoomProperties, AddRoomSta
                 <Dialog
                     open={this.state.dialogIsOpen}
                     onClose={this.closeDialog}
+                    transition={this.transition}
                 >
                     <DialogTitle>Adding a new room</DialogTitle>
                     <DialogContent>
 
                         <TextField
                             name="name"
+                            label="Name"
                             onKeyPress={this.handleEnterKey}
                             onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                 this.setState({
                                     name: event.target.value
                                 });
                             }}
+                            fullWidth
+                            required
                         />
 
                     </DialogContent>

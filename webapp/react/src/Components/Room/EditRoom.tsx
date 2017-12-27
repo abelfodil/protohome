@@ -7,7 +7,6 @@ import IconButton                                            from 'material-ui/I
 
 import GenericDialog                                         from '../Common/GenericFormDialog';
 import { EditRoomProperties, EditRoomState, RoomAttributes } from './Interfaces';
-import { InputFieldStyles }                                  from '../../Styles/Styles';
 
 export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoomState> {
     constructor(props: EditRoomProperties) {
@@ -79,12 +78,12 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
                 <Dialog
                     open={this.state.dialogIsOpen}
                     onClose={this.closeDialog}
+                    transition={this.transition}
                 >
                     <DialogTitle>{'Editing "' + this.props.name + '"'}</DialogTitle>
                     <DialogContent>
 
                         <TextField
-                            style={InputFieldStyles}
                             defaultValue={this.props.name}
                             name="name"
                             onKeyPress={this.handleEnterKey}
@@ -93,6 +92,8 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
                                     name: event.target.value
                                 });
                             }}
+                            fullWidth
+                            required
                         />
 
                     </DialogContent>

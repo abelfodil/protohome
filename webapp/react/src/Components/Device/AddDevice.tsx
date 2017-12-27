@@ -22,10 +22,14 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
             name: '',
             address: '',
             selectedCategory: '',
+            helperName: '',
+            helperAddress: '',
+            helperCategory: '',
 
-            errorName: '',
-            errorAddress: '',
-            errorCategory: ''
+            errorName: false,
+            errorAddress: false,
+            errorCategory: false
+
         };
     }
 
@@ -36,33 +40,39 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
         if (this.state.name === '') {
             returnValue = true;
             this.setState({
-                errorName: 'Required'
+                errorName: true,
+                helperName: 'Required'
             });
         } else {
             this.setState({
-                errorName: ''
+                errorName: false,
+                helperName: ''
             });
         }
 
         if (this.state.address === '') {
             returnValue = true;
             this.setState({
-                errorAddress: 'Required'
+                errorAddress: true,
+                helperAddress: 'Required'
             });
         } else {
             this.setState({
-                errorAddress: ''
+                errorAddress: false,
+                helperAddress: ''
             });
         }
 
         if (this.state.selectedCategory === '') {
             returnValue = true;
             this.setState({
-                errorCategory: 'Required'
+                errorCategory: true,
+                helperCategory: 'Required'
             });
         } else {
             this.setState({
-                errorCategory: ''
+                errorCategory: false,
+                helperCategory: ''
             });
         }
 
@@ -77,9 +87,13 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
             address: '',
             selectedCategory: '',
 
-            errorName: '',
-            errorAddress: '',
-            errorCategory: ''
+            helperName: '',
+            helperAddress: '',
+            helperCategory: '',
+
+            errorName: false,
+            errorAddress: false,
+            errorCategory: false
         });
     }
 
@@ -108,7 +122,7 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
         fetch(location, details).then(result => {
             result.json().then(data => {
                 if (data.duplicate) {
-                    this.setState({ errorName: 'Name already taken' });
+                    this.setState({ helperName: 'Name already taken', errorName: true });
                 } else {
 
                     let newDevice: DeviceAttributes = {
@@ -134,12 +148,15 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                 <Dialog
                     open={this.state.dialogIsOpen}
                     onClose={this.closeDialog}
+                    transition={this.transition}
                 >
                     <DialogTitle>{'Adding a new device to "' + this.props.room_name + '"'}</DialogTitle>
                     <DialogContent>
                         <TextField
                             id="name"
                             label="Name"
+                            error={this.state.errorName}
+                            helperText={this.state.helperName}
                             value={this.state.name}
                             onKeyPress={this.handleEnterKey}
                             onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -147,11 +164,17 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                                     name: event.target.value
                                 });
                             }}
+                            fullWidth
+                            required
                         />
+
+                        <br/>
 
                         <TextField
                             label="Address"
                             name="address"
+                            error={this.state.errorAddress}
+                            helperText={this.state.helperAddress}
                             value={this.state.address}
                             onKeyPress={this.handleEnterKey}
                             onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -159,7 +182,11 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                                     address: event.target.value
                                 });
                             }}
+                            fullWidth
+                            required
                         />
+
+                        <br/>
 
                         <FormControl>
                             <InputLabel htmlFor="category">Category</InputLabel>
@@ -169,11 +196,17 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                     this.setState({ selectedCategory: event.target.value });
                                 }}
+                                fullWidth
                             >
                                 <MenuItem key="bulb" value="bulb">Lightbulb</MenuItem>
                                 <MenuItem key="uk" value="uk">Unkown</MenuItem>
                             </Select>
-                            <FormHelperText>Some important helper text</FormHelperText>
+
+                            <FormHelperText
+                                error={this.state.errorCategory}
+                            >
+                                {this.state.helperCategory}
+                            </FormHelperText>
                         </FormControl>
                     </DialogContent>
                     <DialogActions>

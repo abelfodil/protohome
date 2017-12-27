@@ -1,10 +1,12 @@
-import * as React    from 'react';
-import * as SocketIO from 'socket.io-client';
+import * as React           from 'react';
+import { MuiThemeProvider } from 'material-ui/styles';
+import * as SocketIO        from 'socket.io-client';
 
 import './Styles/App.css';
-import { AppState }  from './Components/Common/Interfaces';
-import Home          from './Components/Home';
-import LoadingScreen from './Components/Common/LoadingScreen';
+import { theme }            from './Styles/Theme';
+import { AppState }         from './Components/Common/Interfaces';
+import Home                 from './Components/Home';
+import LoadingScreen        from './Components/Common/LoadingScreen';
 
 export default class App extends React.Component<{}, AppState> {
     private static host: string = 'http://localhost:5000';
@@ -61,9 +63,11 @@ export default class App extends React.Component<{}, AppState> {
         }
 
         return (
-            <div className="App">
-                {objectToRender}
-            </div>
+            <MuiThemeProvider theme={theme}>
+                <div className="App">
+                    {objectToRender}
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
