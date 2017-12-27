@@ -1,38 +1,14 @@
-import * as React  from 'react';
-import Dialog      from 'material-ui/Dialog';
-import FlatButton  from 'material-ui/FlatButton';
-import TextField   from 'material-ui/TextField';
-import Divider     from 'material-ui/Divider';
-import IconButton  from 'material-ui/IconButton';
-import BorderInner from 'material-ui-icons/BorderInner';
+import * as React                                            from 'react';
+import { ChangeEvent }                                       from 'react';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
+import TextField                                             from 'material-ui/TextField';
+import IconButton                                            from 'material-ui/IconButton';
+import BorderInner                                           from 'material-ui-icons/BorderInner';
 
 import GenericDialog                                       from '../Common/GenericFormDialog';
 import { AddRoomProperties, AddRoomState, RoomAttributes } from './Interfaces';
-import { InputFieldStyles }                                from '../../Styles/Styles';
 
 export default class AddRoom extends GenericDialog<AddRoomProperties, AddRoomState> {
-
-    actions = [
-        (
-            <FlatButton
-                key="cancel"
-                label="Cancel"
-                className="cancel"
-                primary={true}
-                onClick={this.closeDialog}
-            />
-        ),
-        (
-            <FlatButton
-                key="submit"
-                label="Add"
-                className="submit"
-                primary={true}
-                onClick={() => this.handleSubmit()}
-            />
-        )
-    ];
-
     constructor(props: AddRoomProperties) {
         super(props);
         this.state = {
@@ -102,29 +78,30 @@ export default class AddRoom extends GenericDialog<AddRoomProperties, AddRoomSta
 
     render() {
         return (
-            <span>
+            <div className="dialogWrapper">
                 <Dialog
-                    title={'Adding a new room'}
-                    actions={this.actions}
-                    modal={false}
                     open={this.state.dialogIsOpen}
-                    onRequestClose={this.closeDialog}
+                    onClose={this.closeDialog}
                 >
-                    <TextField
-                        style={InputFieldStyles}
-                        hintText="Name"
-                        name="name"
-                        errorText={this.state.errorName}
-                        underlineShow={false}
-                        onKeyPress={this.handleEnterKey}
-                        onChange={(event: object, value: string) => {
-                            this.setState({
-                                name: value
-                            });
-                        }}
-                    />
-                    <Divider/>
+                    <DialogTitle>Adding a new room</DialogTitle>
+                    <DialogContent>
 
+                        <TextField
+                            name="name"
+                            onKeyPress={this.handleEnterKey}
+                            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                this.setState({
+                                    name: event.target.value
+                                });
+                            }}
+                        />
+
+                    </DialogContent>
+
+                    <DialogActions>
+                        {this.cancelButton()}
+                        {this.submitButton()}
+                    </DialogActions>
                 </Dialog>
 
                 <IconButton
@@ -133,7 +110,7 @@ export default class AddRoom extends GenericDialog<AddRoomProperties, AddRoomSta
                 >
                     <BorderInner/>
                 </IconButton>
-            </span>
+            </div>
         );
     }
 }

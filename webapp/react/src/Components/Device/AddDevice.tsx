@@ -1,44 +1,18 @@
-import * as React  from 'react';
-import Dialog      from 'material-ui/Dialog';
-import FlatButton  from 'material-ui/FlatButton';
-import TextField   from 'material-ui/TextField';
-import Divider     from 'material-ui/Divider';
-import SelectField from 'material-ui/SelectField';
-import MenuItem    from 'material-ui/MenuItem';
-import IconButton  from 'material-ui/IconButton';
-import Add         from 'material-ui-icons/Add';
+import * as React                                            from 'react';
+import { ChangeEvent }                                       from 'react';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
+import TextField                                             from 'material-ui/TextField';
+import Select                                                from 'material-ui/Select';
+import { MenuItem }                                          from 'material-ui/Menu';
+import IconButton                                            from 'material-ui/IconButton';
+import Add                                                   from 'material-ui-icons/Add';
+import { FormControl, FormHelperText }                       from 'material-ui/Form';
+import Input, { InputLabel }                                 from 'material-ui/Input';
 
 import GenericDialog                                             from '../Common/GenericFormDialog';
 import { AddDeviceProperties, AddDeviceState, DeviceAttributes } from './Interfaces';
-import { InputFieldStyles }                                      from '../../Styles/Styles';
 
 export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDeviceState> {
-
-    actions = [
-        (
-            <FlatButton
-                key="cancel"
-                label="Cancel"
-                className="cancel"
-                primary={true}
-                onClick={this.closeDialog}
-            />
-        ),
-        (
-            <FlatButton
-                key="submit"
-                label="Add"
-                className="submit"
-                primary={true}
-                onClick={() => this.handleSubmit()}
-            />
-        )
-    ];
-
-    categoryItems = [
-        <MenuItem key="bulb" value="bulb" primaryText="Lightbulb"/>,
-        <MenuItem key="uk" value="uk" primaryText="Unkown"/>,
-    ];
 
     constructor(props: AddDeviceProperties) {
         super(props);
@@ -156,58 +130,56 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
 
     render() {
         return (
-            <span>
+            <div className="dialogWrapper">
                 <Dialog
-                    title={'Adding a new device to "' + this.props.room_name + '"'}
-                    actions={this.actions}
-                    modal={false}
                     open={this.state.dialogIsOpen}
-                    onRequestClose={this.closeDialog}
+                    onClose={this.closeDialog}
                 >
-                    <TextField
-                        style={InputFieldStyles}
-                        hintText="Name"
-                        name="name"
-                        value={this.state.name}
-                        underlineShow={false}
-                        errorText={this.state.errorName}
-                        onKeyPress={this.handleEnterKey}
-                        onChange={(event: object, value: string) => {
-                            this.setState({
-                                name: value
-                            });
-                        }}
-                    />
-                    <Divider/>
-                    <TextField
-                        style={InputFieldStyles}
-                        hintText="Address"
-                        name="address"
-                        value={this.state.address}
-                        underlineShow={false}
-                        errorText={this.state.errorAddress}
-                        onKeyPress={this.handleEnterKey}
-                        onChange={(event: object, value: string) => {
-                            this.setState({
-                                address: value
-                            });
-                        }}
-                    />
-                    <Divider/>
-                    <SelectField
-                        style={InputFieldStyles}
-                        value={this.state.selectedCategory}
-                        name="category"
-                        onChange={(event, index, category) => {
-                            this.setState({ selectedCategory: category });
-                        }}
-                        floatingLabelText="Category"
-                        errorText={this.state.errorCategory}
-                    >
-                        {this.categoryItems}
-                    </SelectField>
+                    <DialogTitle>{'Adding a new device to "' + this.props.room_name + '"'}</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            id="name"
+                            label="Name"
+                            value={this.state.name}
+                            onKeyPress={this.handleEnterKey}
+                            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                this.setState({
+                                    name: event.target.value
+                                });
+                            }}
+                        />
 
-                    <Divider/>
+                        <TextField
+                            label="Address"
+                            name="address"
+                            value={this.state.address}
+                            onKeyPress={this.handleEnterKey}
+                            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                this.setState({
+                                    address: event.target.value
+                                });
+                            }}
+                        />
+
+                        <FormControl>
+                            <InputLabel htmlFor="category">Category</InputLabel>
+                            <Select
+                                value={this.state.selectedCategory}
+                                input={<Input name="category" id="category"/>}
+                                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                    this.setState({ selectedCategory: event.target.value });
+                                }}
+                            >
+                                <MenuItem key="bulb" value="bulb">Lightbulb</MenuItem>
+                                <MenuItem key="uk" value="uk">Unkown</MenuItem>
+                            </Select>
+                            <FormHelperText>Some important helper text</FormHelperText>
+                        </FormControl>
+                    </DialogContent>
+                    <DialogActions>
+                        {this.cancelButton()}
+                        {this.submitButton()}
+                    </DialogActions>
                 </Dialog>
 
                 <IconButton
@@ -216,7 +188,7 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                 >
                     <Add/>
                 </IconButton>
-            </span>
+            </div>
         );
     }
 }

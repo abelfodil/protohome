@@ -1,37 +1,15 @@
-import * as React from 'react';
-import Dialog     from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField  from 'material-ui/TextField';
-import Create     from 'material-ui-icons/Create';
-import IconButton from 'material-ui/IconButton';
+import * as React                                            from 'react';
+import { ChangeEvent }                                       from 'react';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
+import TextField                                             from 'material-ui/TextField';
+import Create                                                from 'material-ui-icons/Create';
+import IconButton                                            from 'material-ui/IconButton';
 
 import GenericDialog                                         from '../Common/GenericFormDialog';
 import { EditRoomProperties, EditRoomState, RoomAttributes } from './Interfaces';
 import { InputFieldStyles }                                  from '../../Styles/Styles';
 
 export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoomState> {
-
-    actions = [
-        (
-            <FlatButton
-                key="cancel"
-                label="Cancel"
-                className="cancel"
-                primary={true}
-                onClick={this.closeDialog}
-            />
-        ),
-        (
-            <FlatButton
-                key="submit"
-                label="Submit"
-                className="submit"
-                primary={true}
-                onClick={() => this.handleSubmit()}
-            />
-        )
-    ];
-
     constructor(props: EditRoomProperties) {
         super(props);
         this.state = {
@@ -97,27 +75,32 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
 
     render() {
         return (
-            <span>
+            <div className="dialogWrapper">
                 <Dialog
-                    title={'Editing "' + this.props.name + '"'}
-                    actions={this.actions}
-                    modal={false}
                     open={this.state.dialogIsOpen}
-                    onRequestClose={this.closeDialog}
+                    onClose={this.closeDialog}
                 >
-                    <TextField
-                        style={InputFieldStyles}
-                        defaultValue={this.props.name}
-                        name="name"
-                        errorText={this.state.errorName}
-                        onKeyPress={this.handleEnterKey}
-                        onChange={(event: object, value: string) => {
-                            this.setState({
-                                name: value
-                            });
-                        }}
-                    />
+                    <DialogTitle>{'Editing "' + this.props.name + '"'}</DialogTitle>
+                    <DialogContent>
 
+                        <TextField
+                            style={InputFieldStyles}
+                            defaultValue={this.props.name}
+                            name="name"
+                            onKeyPress={this.handleEnterKey}
+                            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                this.setState({
+                                    name: event.target.value
+                                });
+                            }}
+                        />
+
+                    </DialogContent>
+
+                    <DialogActions>
+                        {this.cancelButton()}
+                        {this.submitButton()}
+                    </DialogActions>
                 </Dialog>
 
                 <IconButton
@@ -126,7 +109,7 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
                 >
                     <Create/>
                 </IconButton>
-            </span>
+            </div>
         );
     }
 }
