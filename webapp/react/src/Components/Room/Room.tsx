@@ -47,10 +47,6 @@ export default class Room extends React.Component<RoomProperties, {}> {
 
                 <h1>{this.props.name}</h1>
 
-                <span className="buttons">
-
-                </span>
-
                 <div>
                     {devices}
 

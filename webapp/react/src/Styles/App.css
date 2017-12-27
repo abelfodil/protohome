@@ -8,6 +8,10 @@ div.dialogWrapper {
     display: inline;
 }
 
+.listElementText {
+    margin-right: 50px;
+}
+
 div[class*="MuiDialog-paper-"] {
     width: 100% !important;
 }

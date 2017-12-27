@@ -3,13 +3,12 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import * as SocketIO        from 'socket.io-client';
 import Drawer               from 'material-ui/Drawer';
 
-
 import './Styles/App.css';
 import { theme }            from './Styles/Theme';
 import { AppState }         from './Components/Common/Interfaces';
 import LoadingScreen        from './Components/Common/LoadingScreen';
 import Room                 from './Components/Room/Room';
-import ListRooms            from './Components/Room/ListRooms'
+import ListRooms            from './Components/Room/ListRooms';
 import { RoomAttributes }   from './Components/Room/Interfaces';
 
 export default class App extends React.Component<{}, AppState> {
@@ -82,7 +81,23 @@ export default class App extends React.Component<{}, AppState> {
     }
 
     displaySelectedRoom = () => {
-        if (this.state.selectedRoom !== null) {
+        if (this.state.selectedRoom === null) {
+            if (this.state.rooms.length !== 0) {
+                let room = this.state.rooms[0];
+                return (
+                    <Room
+                        key={room.id + '_display'}
+                        id={room.id}
+                        name={room.name}
+                        devices={room.devices}
+                        APILocation={this.state.APILocation}
+                        onRoomUpdate={this.handleRoomUpdate}
+                    />
+                );
+            } else {
+                return;
+            }
+        } else {
             return (
                 <Room
                     key={this.state.selectedRoom.id + '_display'}
@@ -93,8 +108,6 @@ export default class App extends React.Component<{}, AppState> {
                     onRoomUpdate={this.handleRoomUpdate}
                 />
             );
-        } else {
-            return;
         }
     }
 

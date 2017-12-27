@@ -9,7 +9,7 @@ import List, {
 import '../../Styles/Room.css';
 import { ListRoomsProperties } from './Interfaces';
 import AddRoom                 from './AddRoom';
-import EditRoom                from './EditRoom';
+import EditRoom                from './RenameRoom';
 import DeleteRoom              from './DeleteRoom';
 
 export default class ListRooms extends React.Component<ListRoomsProperties, {}> {
@@ -24,13 +24,13 @@ export default class ListRooms extends React.Component<ListRoomsProperties, {}> 
                 {
                     this.props.rooms.map(room => {
                         return (
-                            <div>
+                            <div key={room.id + '_itemWrapper'}>
                                 <ListItem
                                     key={room.id + '_item'}
                                     button={true}
                                     onClick={() => this.props.selectRoom(room.id)}
                                 >
-                                    <ListItemText primary={room.name}/>
+                                    <ListItemText primary={room.name} className="listElementText"/>
                                     <ListItemSecondaryAction>
                                         <EditRoom
                                             key={room.id + '_edit'}
@@ -56,7 +56,7 @@ export default class ListRooms extends React.Component<ListRoomsProperties, {}> 
                         );
                     })
                 }
-                <ListItem key='new_room'>
+                <ListItem key="new_room">
                     <ListItemText primary="Add room"/>
                     <ListItemSecondaryAction>
                         <AddRoom

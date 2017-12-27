@@ -80,7 +80,7 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
                     onClose={this.closeDialog}
                     transition={this.transition}
                 >
-                    <DialogTitle>{'Editing "' + this.props.name + '"'}</DialogTitle>
+                    <DialogTitle>{'Renaming "' + this.props.name + '"'}</DialogTitle>
                     <DialogContent>
 
                         <TextField
