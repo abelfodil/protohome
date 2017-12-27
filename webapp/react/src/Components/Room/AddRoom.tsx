@@ -96,8 +96,7 @@ export default class AddRoom extends GenericDialog<AddRoomProperties, AddRoomSta
                                     name: event.target.value
                                 });
                             }}
-                            fullWidth
-                            required
+                            fullWidth={true}
                         />
 
                     </DialogContent>

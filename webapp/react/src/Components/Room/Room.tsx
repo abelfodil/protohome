@@ -4,8 +4,6 @@ import '../../Styles/Room.css';
 import { DeviceAttributes }               from '../Device/Interfaces';
 import { RoomAttributes, RoomProperties } from './Interfaces';
 import Device                             from '../Device/Device';
-import EditRoom                           from './EditRoom';
-import DeleteRoom                         from './DeleteRoom';
 import AddDevice                          from '../Device/AddDevice';
 
 export default class Room extends React.Component<RoomProperties, {}> {
@@ -21,19 +19,11 @@ export default class Room extends React.Component<RoomProperties, {}> {
         this.props.onRoomUpdate(updatedRoom);
     }
 
-    handleUpdate = (updatedRoom: RoomAttributes) => {
-        this.props.onRoomUpdate(updatedRoom);
-    }
-
     handleAddDevice = (newDevice: DeviceAttributes) => {
         let updatedRoom: RoomAttributes = Object.assign({}, this.props); // deep copy
         updatedRoom.devices.push(newDevice);
 
         this.props.onRoomUpdate(updatedRoom);
-    }
-
-    handleDeleteRoom = () => {
-        this.props.onRoomDelete(this.props.id);
     }
 
     render() {
@@ -58,23 +48,7 @@ export default class Room extends React.Component<RoomProperties, {}> {
                 <h1>{this.props.name}</h1>
 
                 <span className="buttons">
-                    <EditRoom
-                        key={this.props.id + '_edit'}
-                        id={this.props.id}
-                        name={this.props.name}
-                        APILocation={this.props.APILocation}
-                        devices={this.props.devices}
-                        updateRoom={this.handleUpdate}
-                    />
 
-                    <DeleteRoom
-                        key={this.props.id + '_delete'}
-                        id={this.props.id}
-                        name={this.props.name}
-                        APILocation={this.props.APILocation}
-                        devices={this.props.devices}
-                        deleteRoom={this.handleDeleteRoom}
-                    />
                 </span>
 
                 <div>

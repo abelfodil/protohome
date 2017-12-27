@@ -1,9 +1,13 @@
 .App {
     margin: 0;
-    padding: 50px 0 0 0;
     width: 100%;
+    height: 100%;
 }
 
-.dialogWrapper {
+div.dialogWrapper {
     display: inline;
+}
+
+div[class*="MuiDialog-paper-"] {
+    width: 100% !important;
 }

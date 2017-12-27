@@ -31,7 +31,7 @@ export default class DeleteRoom extends GenericDialog<DeleteRoomProperties, Dele
 
         fetch(location, details).then(() => {
             this.closeDialog();
-            this.props.deleteRoom();
+            this.props.deleteRoom(this.props.id);
         });
 
     }

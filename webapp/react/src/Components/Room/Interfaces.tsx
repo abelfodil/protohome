@@ -10,8 +10,16 @@ export interface RoomAttributes {
 export interface RoomProperties extends RoomAttributes {
     APILocation: string;
     onRoomUpdate(newRoom: RoomAttributes): void;
-    onRoomAdd(newRoom: RoomAttributes): void;
-    onRoomDelete(id: string): void;
+
+}
+
+export interface ListRoomsProperties {
+    rooms: Array<RoomAttributes>;
+    APILocation: string;
+    updateRoom(newRoom: RoomAttributes): void;
+    addRoom(newRoom: RoomAttributes): void;
+    deleteRoom(id: string): void;
+    selectRoom(id: string): void;
 }
 
 export interface AddRoomProperties {
@@ -36,7 +44,7 @@ export interface EditRoomState extends GenericDialogState {
 
 export interface DeleteRoomProperties extends RoomAttributes {
     APILocation: string;
-    deleteRoom(): void;
+    deleteRoom(id: string): void;
 }
 
 export interface DeleteRoomState extends GenericDialogState {

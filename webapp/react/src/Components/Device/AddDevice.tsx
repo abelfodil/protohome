@@ -157,15 +157,13 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                             label="Name"
                             error={this.state.errorName}
                             helperText={this.state.helperName}
-                            value={this.state.name}
                             onKeyPress={this.handleEnterKey}
                             onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                 this.setState({
                                     name: event.target.value
                                 });
                             }}
-                            fullWidth
-                            required
+                            fullWidth={true}
                         />
 
                         <br/>
@@ -175,15 +173,13 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                             name="address"
                             error={this.state.errorAddress}
                             helperText={this.state.helperAddress}
-                            value={this.state.address}
                             onKeyPress={this.handleEnterKey}
                             onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                 this.setState({
                                     address: event.target.value
                                 });
                             }}
-                            fullWidth
-                            required
+                            fullWidth={true}
                         />
 
                         <br/>
@@ -196,7 +192,7 @@ export default class AddDevice extends GenericDialog<AddDeviceProperties, AddDev
                                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                     this.setState({ selectedCategory: event.target.value });
                                 }}
-                                fullWidth
+
                             >
                                 <MenuItem key="bulb" value="bulb">Lightbulb</MenuItem>
                                 <MenuItem key="uk" value="uk">Unkown</MenuItem>

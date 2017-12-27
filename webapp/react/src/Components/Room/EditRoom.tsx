@@ -92,8 +92,7 @@ export default class EditRoom extends GenericDialog<EditRoomProperties, EditRoom
                                     name: event.target.value
                                 });
                             }}
-                            fullWidth
-                            required
+                            fullWidth={true}
                         />
 
                     </DialogContent>

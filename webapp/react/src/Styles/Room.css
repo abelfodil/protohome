@@ -5,8 +5,7 @@
 
 .Room {
     position: relative;
-    left: 25%;
-    width: 50%;
+    width: 100%;
     border-radius: 25px;
     margin-bottom: 50px;
 
@@ -31,17 +30,4 @@
 
 button.cancel {
     color: #9E9E9E !important;
-}
-
-button.AddRoom {
-    width: 100px !important;
-    height: 100px !important;
-    left: 50% !important;
-    margin: 24px 0 24px 0 !important;
-}
-
-button.AddRoom svg {
-    width: 70px !important;
-    height: 70px !important;
-    color: var(--secondary) !important;
 }

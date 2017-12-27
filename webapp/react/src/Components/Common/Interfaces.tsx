@@ -1,15 +1,8 @@
 import { RoomAttributes } from '../Room/Interfaces';
 
-export interface HomeAttributes {
-    rooms: Array<RoomAttributes>;
-}
-
-export interface HomeProperties extends HomeAttributes {
-    APILocation: string;
-}
-
 export interface AppState {
     rooms: Array<RoomAttributes>;
+    selectedRoom: RoomAttributes | null;
     APILocation: string;
     loaded: boolean;
 }
